@@ -9,23 +9,23 @@ jobs:
   # ==============
   # CI task
   # ==============
-  quality-check:
-    name: Quality Scan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      - uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  # quality-check:
+  #   name: Quality Scan
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - uses: sonarsource/sonarqube-scan-action@master
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  #     # If you wish to fail your job when the Quality Gate is red, uncomment the
+  #     # following lines. This would typically be used to fail a deployment.
+  #     - uses: sonarsource/sonarqube-quality-gate-action@master
+  #       timeout-minutes: 5
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   build-and-push-docker-image:
     name: Build Docker image and push to repositories
@@ -34,16 +34,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup SHA
         run: echo "GITHUB_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
-      
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ghcr.io/aorjoa-training/devops-go-example:${{ env.GITHUB_SHA }}
-        
+
       - name: Integration test inside Docker-compose cleanup
         run: docker-compose -f docker-compose.test.yml down
-    
+
       - name: Integration test inside Docker-compose
         run: docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from it_tests
 
@@ -54,7 +54,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           logout: true
-      
+
       - name: Push to GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
