@@ -76,20 +76,34 @@ jobs:
   #     - name: checkout
   #       uses: actions/checkout@v2
   #       with:
+<<<<<<< HEAD
   #         repository: peachoenixzz/devops-argocd
+=======
+  #         repository: aorjoa-training/devops-argocd
+>>>>>>> c48d42c (fix dev ops)
   #         persist-credentials: false
   #         fetch-depth: 0
   #     - name: change image tag
   #       run: |
   #         git --version
+<<<<<<< HEAD
   #         git config user.name "Pantakarn Kowdokrak"
   #         git config user.email "peachoenixz@gmail.com"
   #         sed -i -E "s/ghcr.io\/peachoenixzz\/devops-go-example.*$/ghcr.io\/peachoenixzz\/devops-go-example:${GITHUB_SHA}/" kube-gitops/deployment.yml
+=======
+  #         git config user.name "aorjoa"
+  #         git config user.email "root@aorjoa.link"
+  #         sed -i -E "s/ghcr.io\/aorjoa-training\/devops-go-example.*$/ghcr.io\/aorjoa-training\/devops-go-example:${GITHUB_SHA}/" kube-gitops/deployment.yml
+>>>>>>> c48d42c (fix dev ops)
   #         git add kube-gitops/deployment.yml
   #         git commit -m "🤖 change docker image version to ${GITHUB_SHA}"
   #     - name: push changes
   #       uses: ad-m/github-push-action@master
   #       with:
   #         github_token: ${{ secrets.PAT }}
+<<<<<<< HEAD
   #         repository: peachoenixzz/devops-argocd
+=======
+  #         repository: aorjoa-training/devops-argocd
+>>>>>>> c48d42c (fix dev ops)
   #         branch: main
